@@ -52,6 +52,13 @@ h2 {
     color: var(--headerColor);
 }
 
+h3 {
+    width: 100%;
+    margin: 20px 0;
+    font-size: 20px;
+    font-family: 'Times New Roman', Times, serif;
+    color: var(--headerColor);
+}
 ul {
     list-style: none;
 }
@@ -332,11 +339,26 @@ a.info {
     flex-grow: 1;
 }
 
+.articleLine .date {
+    min-width: 200px;
+    width: 200px;
+}
 .articleLine > div {
     padding: 20px;
     border: 1px solid var(--backgroundColor);
 }
 
+.admin_title{
+    width: 100%;
+    text-decoration:underline;
+    display: flex;
+    justify-content: center;
+}
+.back{
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+}
 /** 
  * Footer global de la page.
  */

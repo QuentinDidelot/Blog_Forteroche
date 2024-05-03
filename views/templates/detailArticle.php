@@ -55,3 +55,7 @@
         </div>
     </form>
 </div>
+
+<div class="back">
+    <h3><a href="index.php?action=home"> ← Retour</a></h3>
+</div>

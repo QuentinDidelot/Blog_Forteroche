@@ -66,4 +66,11 @@ class CommentManager extends AbstractEntityManager
         return $result->rowCount() > 0;
     }
 
+    public function getAllCommentsWithArticleName() : array
+    {
+        $sql = "SELECT article.title AS article_title, pseudo, comment.content, id_article, comment.date_creation FROM comment LEFT JOIN article ON article.id = comment.id_article";
+        $result = $this->db->query($sql);
+        return $result->fetchAll();
+    }
 }
+

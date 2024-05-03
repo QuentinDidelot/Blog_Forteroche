@@ -1,21 +1,12 @@
 <?php 
     /** 
-     * Affichage de la partie admin : liste des articles avec un bouton "modifier" pour chacun. 
-     * Et un formulaire pour ajouter un article. 
+     * Affichage de la partie admin avec le menu. L'administrateur/trice aura le choix entre
+     * Edition des articles : pour écrire les nouveaux articles, les modifier, les supprimer
+     * Gestion des commentaires : pour gérer les commentaires qui seront poster par les utilisateurs
      */
 ?>
-
-<h2>Edition des articles</h2>
-
-<div class="adminArticle">
-    <?php foreach ($articles as $article) { ?>
-        <div class="articleLine">
-            <div class="title"><?= $article->getTitle() ?></div>
-            <div class="content"><?= $article->getContent(200) ?></div>
-            <div><a class="submit" href="index.php?action=showUpdateArticleForm&id=<?= $article->getId() ?>">Modifier</a></div>
-            <div><a class="submit" href="index.php?action=deleteArticle&id=<?= $article->getId() ?>" <?= Utils::askConfirmation("Êtes-vous sûr de vouloir supprimer cet article ?") ?> >Supprimer</a></div>
-        </div>
-    <?php } ?>
+<h2 class="admin_title"> Administration </h2>
+<div class="admin_menu">
+    <h2><a href="index.php?action=editionArticle">Edition des articles</a></h2>
+    <h2><a href="index.php?action=commentManagement">Gestion des commentaires</a><h2>
 </div>
-
-<a class="submit" href="index.php?action=showUpdateArticleForm">Ajouter un article</a>

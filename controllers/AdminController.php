@@ -14,14 +14,53 @@ class AdminController {
         // On vérifie que l'utilisateur est connecté.
         $this->checkIfUserIsConnected();
 
+        // // On récupère les articles.
+        // $articleManager = new ArticleManager();
+        // $articles = $articleManager->getAllArticles();
+
+        // On affiche la page d'administration.
+        $view = new View("Administration");
+        $view->render("admin");
+    }
+
+    /**
+     * Affiche la page d'édition des articles
+     * @return void
+     */
+    public function showEditionArticle() : void
+    {
+        // On vérifie que l'utilisateur est connecté.
+        $this->checkIfUserIsConnected();
+
         // On récupère les articles.
         $articleManager = new ArticleManager();
         $articles = $articleManager->getAllArticles();
 
-        // On affiche la page d'administration.
-        $view = new View("Administration");
-        $view->render("admin", [
+        // On affiche la page d'édition des articles
+        $view = new View("EditionArticle");
+        $view->render("editionArticle", [
             'articles' => $articles
+        ]);
+    }
+
+    /**
+     * Affiche la page de gestion des commentaires
+     * @return void
+     */
+    public function showCommentManagement() : void
+    {
+        // On vérifie que l'utilisateur est connecté.
+        $this->checkIfUserIsConnected();
+
+        // On récupère les commentaires.
+        $commentManager = new commentManager();
+        $comments = $commentManager->getAllCommentsWithArticleName();
+
+
+        // On affiche la page de gestion des commentaires
+        $view = new View("CommentManagement");
+        $view->render("commentManagement", [
+            'comments' => $comments,
         ]);
     }
 
