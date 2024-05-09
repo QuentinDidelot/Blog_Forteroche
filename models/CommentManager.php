@@ -76,11 +76,40 @@ class CommentManager extends AbstractEntityManager
         return $result->fetchAll();
     }
 
+    public function getAllCommentsWithArticleNamePaginated(int $commentsPerPage, int $offset) : array
+{
+    $sql = "SELECT article.title AS article_title, pseudo, comment.id, comment.content, id_article, comment.date_creation, article.date_creation AS article_date_creation FROM comment LEFT JOIN article ON article.id = comment.id_article LIMIT :limit OFFSET :offset";
+    $result = $this->db->getPDO()->prepare($sql);
+    $result->bindValue(':limit', $commentsPerPage, PDO::PARAM_INT);
+    $result->bindValue(':offset', $offset, PDO::PARAM_INT);
+    $result->execute();
+    return $result->fetchAll();
+}
+
     public function getCommentCountsByArticle() : array
     {
         $sql = "SELECT id_article, COUNT(*) AS comment_count FROM comment GROUP BY id_article";
         $result = $this->db->query($sql);
         return $result->fetchAll();
+    }
+    
+    public function getCommentsForPage(int $commentsPerPage, int $offset) : array
+    {
+        $sql = "SELECT * FROM comment ORDER BY date_creation DESC LIMIT :limit OFFSET :offset";
+        $stmt = $this->db->getPDO()->prepare($sql);
+        $stmt->bindParam(':limit', $commentsPerPage, PDO::PARAM_INT);
+        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    
+    public function getTotalCommentsCount() : int
+    {
+        $sql = "SELECT COUNT(*) AS total FROM comment";
+        $result = $this->db->query($sql);
+        $data = $result->fetch();
+        return $data['total'];
     }
     
 }

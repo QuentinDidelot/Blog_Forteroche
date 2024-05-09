@@ -79,22 +79,44 @@ class AdminController {
 
     }
 
-    public function showCommentManagement() : void
-    {
-                // On vérifie que l'utilisateur est connecté.
-                $this->checkIfUserIsConnected();
+    // public function showCommentManagement() : void
+    // {
+    //             // On vérifie que l'utilisateur est connecté.
+    //             $this->checkIfUserIsConnected();
 
-                // On récupère les commentaires.
-                $commentManager = new CommentManager();
-                $comments = $commentManager->getAllCommentsWithArticleName();
+    //             // On récupère les commentaires.
+    //             $commentManager = new CommentManager();
+    //          $comments = $commentManager->getAllCommentsWithArticleName();
+ 
         
-        
-                // On affiche la page de gestion des commentaires
-                $view = new View("CommentManagement");
-                $view->render("commentManagement", [
-                    'comments' => $comments,
-                ]);
+    //             // On affiche la page de gestion des commentaires
+    //             $view = new View("CommentManagement");
+    //             $view->render("commentManagement", [
+    //                 'comments' => $comments,
+    //             ]);
+    // }
+
+    public function showCommentManagement(int $page = 1) : void
+    {
+        // On vérifie que l'utilisateur est connecté.
+        $this->checkIfUserIsConnected();
+    
+        $commentsPerPage = 15;
+        $commentManager = new CommentManager();
+    
+        $offset = ($page - 1) * $commentsPerPage;
+        $comments = $commentManager->getAllCommentsWithArticleNamePaginated($commentsPerPage, $offset);
+        $totalComments = $commentManager->getTotalCommentsCount();
+        $totalPages = ceil($totalComments / $commentsPerPage);
+    
+        $view = new View("CommentManagement");
+        $view->render("commentManagement", [
+            'comments' => $comments,
+            'currentPage' => $page,
+            'totalPages' => $totalPages
+        ]);
     }
+    
 
     /**
      * Vérifie que l'utilisateur est connecté.
