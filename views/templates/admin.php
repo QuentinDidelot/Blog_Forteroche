@@ -8,5 +8,6 @@
 <h2 class="admin_title"> Administration </h2>
 <div class="admin_menu">
     <h2><a href="index.php?action=editionArticle">Edition des articles</a></h2>
+    <h2><a href="index.php?action=articleManagement">Gestion des articles</a><h2>
     <h2><a href="index.php?action=commentManagement">Gestion des commentaires</a><h2>
 </div>

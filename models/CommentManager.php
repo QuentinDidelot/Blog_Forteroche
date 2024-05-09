@@ -5,6 +5,7 @@
  */
 class CommentManager extends AbstractEntityManager
 {
+    
     /**
      * Récupère tous les commentaires d'un article.
      * @param int $idArticle : l'id de l'article.
@@ -38,6 +39,7 @@ class CommentManager extends AbstractEntityManager
         return null;
     }
 
+
     /**
      * Ajoute un commentaire.
      * @param Comment $comment : l'objet Comment à ajouter.
@@ -65,12 +67,21 @@ class CommentManager extends AbstractEntityManager
         $result = $this->db->query($sql, ['id' => $comment->getId()]);
         return $result->rowCount() > 0;
     }
+    
 
     public function getAllCommentsWithArticleName() : array
     {
-        $sql = "SELECT article.title AS article_title, pseudo, comment.content, id_article, comment.date_creation FROM comment LEFT JOIN article ON article.id = comment.id_article";
+        $sql = "SELECT article.title AS article_title, pseudo, comment.id, comment.content, id_article, comment.date_creation, article.date_creation AS article_date_creation FROM comment LEFT JOIN article ON article.id= comment.id_article";
         $result = $this->db->query($sql);
         return $result->fetchAll();
     }
+
+    public function getCommentCountsByArticle() : array
+    {
+        $sql = "SELECT id_article, COUNT(*) AS comment_count FROM comment GROUP BY id_article";
+        $result = $this->db->query($sql);
+        return $result->fetchAll();
+    }
+    
 }
 

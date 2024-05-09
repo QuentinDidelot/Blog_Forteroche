@@ -20,6 +20,7 @@
     --dateColor: #3f56a4;
     --quoteColor: #c5cbe4;
     --commentPaleColor: #99a140;
+    --commentSecondePaleColor : #a9c58e;
     --commentColor: #255E33;
 }
 
@@ -322,6 +323,12 @@ a.info {
 
 .articleLine {
     display: flex; 
+    border: 1px solid #ccc;
+}
+
+.articleLine:nth-child(even) {
+   
+    background-color: var(--commentSecondePaleColor);
 }
 
 .articleLine div {
@@ -337,11 +344,29 @@ a.info {
 
 .articleLine .content {
     flex-grow: 1;
+    min-width: 300px;
 }
 
 .articleLine .date {
     min-width: 200px;
     width: 200px;
+}
+
+.articleLine .pseudo {
+    min-width: 200px;
+    width: 200px;
+}
+
+.articleLine .gestion {
+    min-width: 200px;
+    width: 200px;
+    justify-content: center;
+}
+
+.comment_count {
+    min-width: 200px;
+    width: 200px;
+    justify-content: center;
 }
 .articleLine > div {
     padding: 20px;

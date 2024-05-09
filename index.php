@@ -78,11 +78,28 @@ try {
             $adminController = new AdminController();
             $adminController->showEditionArticle();
             break;
-        case 'commentManagement' :
+
+        case 'articleManagement' :
+            $adminController = new AdminController();
+            $adminController->showArticleManagement();
+            break;
+            
+        case 'deleteComment':
+            $adminController = new AdminController();
+            $adminController->deleteComment();
+            break;
+     
+        case 'commentManagement':
             $adminController = new AdminController();
             $adminController->showCommentManagement();
             break;
-            
+
+        case 'sort':
+            $adminController = new AdminController();
+            $adminController->sortComments();
+            break;
+    
+
         default:
             throw new Exception("La page demandée n'existe pas.");
     }
