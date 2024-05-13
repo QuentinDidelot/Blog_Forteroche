@@ -69,10 +69,13 @@ class CommentManager extends AbstractEntityManager
     }
     
 
-    public function getAllCommentsWithArticleName() : array
+    public function getAllCommentsWithArticleName(string $column, string $order) : array
     {
-        $sql = "SELECT article.title AS article_title, pseudo, comment.id, comment.content, id_article, comment.date_creation, article.date_creation AS article_date_creation FROM comment LEFT JOIN article ON article.id= comment.id_article";
-        $result = $this->db->query($sql);
+        $sql = "SELECT article.title AS article_title, pseudo, comment.id, comment.content, id_article, comment.date_creation, article.date_creation AS article_date_creation FROM comment LEFT JOIN article ON article.id= comment.id_article ORDER BY ? ? ";
+        $result = $this->db->getPDO()->prepare($sql);
+        // $result->bindParam(':column', $column, PDO::PARAM_STR);
+        // $result->bindParam(':order', $order, PDO::PARAM_STR);
+        $result->execute([$column, $order]);
         return $result->fetchAll();
     }
 

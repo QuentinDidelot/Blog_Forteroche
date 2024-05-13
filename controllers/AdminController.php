@@ -54,8 +54,12 @@ class AdminController {
 
         // On récupère les commentaires.
         $commentManager = new CommentManager();
-        $comments = $commentManager->getAllCommentsWithArticleName();
 
+        $column = isset($_GET['column']) ? $_GET['column'] : "id" ;
+        $order = isset($_GET['order']) ? $_GET['order'] : "desc";
+        $comments = $commentManager->getAllCommentsWithArticleName($column, $order);
+        var_dump($comments);
+        die;
 
         // Regrouper les commentaires par article et calculer le nombre de commentaires pour chaque article
         $articles = [];
@@ -79,31 +83,16 @@ class AdminController {
 
     }
 
-    // public function showCommentManagement() : void
-    // {
-    //             // On vérifie que l'utilisateur est connecté.
-    //             $this->checkIfUserIsConnected();
-
-    //             // On récupère les commentaires.
-    //             $commentManager = new CommentManager();
-    //          $comments = $commentManager->getAllCommentsWithArticleName();
- 
-        
-    //             // On affiche la page de gestion des commentaires
-    //             $view = new View("CommentManagement");
-    //             $view->render("commentManagement", [
-    //                 'comments' => $comments,
-    //             ]);
-    // }
-
-    public function showCommentManagement(int $page = 1) : void
+    public function showCommentManagement() : void
     {
         // On vérifie que l'utilisateur est connecté.
         $this->checkIfUserIsConnected();
     
-        $commentsPerPage = 15;
+        $commentsPerPage = 5;
         $commentManager = new CommentManager();
-    
+        $page = isset($_GET['page']) ? $_GET['page'] : 1;
+
+
         $offset = ($page - 1) * $commentsPerPage;
         $comments = $commentManager->getAllCommentsWithArticleNamePaginated($commentsPerPage, $offset);
         $totalComments = $commentManager->getTotalCommentsCount();
@@ -313,81 +302,4 @@ class AdminController {
         ]);
     }
 
-    /**
-     * Trie les commentaires en fonction de la colonne et de l'ordre spécifiés.
-     * @param array $comments : Les commentaires à trier.
-     * @param string $column : La colonne selon laquelle trier les commentaires.
-     * @param string $order : L'ordre de tri ('asc' pour croissant, 'desc' pour décroissant).
-     * @return array : Les commentaires triés.
-     */
-    public function sortComments() : void
-    {
-        // On vérifie que l'utilisateur est connecté.
-        $this->checkIfUserIsConnected();
-    
-        // On récupère les commentaires.
-        $commentManager = new CommentManager();
-        $comments = $commentManager->getAllCommentsWithArticleName();
-    
-        // Traitement de l'action de tri
-        if (isset($_GET['column']) && isset($_GET['order'])) {
-            $column = $_GET['column'];
-            $order = $_GET['order'];
-    
-            // Tri des commentaires
-            $comments = $this->sortCommentsArray($comments, $column, $order);
-            
-        }
-    
-        // Regrouper les commentaires par article et calculer le nombre de commentaires pour chaque article
-        $articles = [];
-        foreach ($comments as $comment) {
-            $articleId = $comment['id_article'];
-            if (!isset($articles[$articleId])) {
-                $articles[$articleId] = [
-                    'title' => $comment['article_title'],
-                    'date_creation' => $comment['article_date_creation'],
-                    'comment_count' => 0
-                ];
-            }
-            $articles[$articleId]['comment_count']++;
-        }
-    
-        // On affiche la page de gestion des commentaires
-        $view = new View("ArticleManagement");
-        $view->render("articleManagement", [
-            'articles' => $articles,
-        ]);
-    }
-    
-    /**
-     * Trie les commentaires en fonction de la colonne et de l'ordre spécifiés.
-     * @param array $comments : Les commentaires à trier.
-     * @param string $column : La colonne selon laquelle trier les commentaires.
-     * @param string $order : L'ordre de tri ('asc' pour croissant, 'desc' pour décroissant).
-     * @return array : Les commentaires triés.
-     */
-    private function sortCommentsArray(array $comments, string $column, string $order) : array
-    {
-        // Fonction de comparaison pour le tri
-        $compare = function($a, $b) use ($column, $order) {
-            // Vérifier si les clés existent dans $a et $b
-            if (!isset($a[$column]) || !isset($b[$column])) {
-                // Si une des clés n'existe pas, on ne peut pas comparer, donc on retourne 0 (aucun changement)
-                return 0;
-            }
-    
-            // Comparaison des valeurs selon l'ordre spécifié
-            if ($order === 'asc') {
-                return strcmp($a[$column], $b[$column]);
-            } else {
-                return strcmp($b[$column], $a[$column]);
-            }
-        };
-    
-        // Tri des commentaires
-        usort($comments, $compare);
-    
-        return $comments;
-    }
 }

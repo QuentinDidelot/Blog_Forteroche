@@ -93,13 +93,7 @@ try {
             $adminController = new AdminController();
             $adminController->showCommentManagement();
             break;
-
-        case 'sort':
-            $adminController = new AdminController();
-            $adminController->sortComments();
-            break;
     
-
         default:
             throw new Exception("La page demandée n'existe pas.");
     }
