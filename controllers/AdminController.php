@@ -58,8 +58,6 @@ class AdminController {
         $column = isset($_GET['column']) ? $_GET['column'] : "id" ;
         $order = isset($_GET['order']) ? $_GET['order'] : "desc";
         $comments = $commentManager->getAllCommentsWithArticleName($column, $order);
-        var_dump($comments);
-        die;
 
         // Regrouper les commentaires par article et calculer le nombre de commentaires pour chaque article
         $articles = [];

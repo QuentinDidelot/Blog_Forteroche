@@ -22,6 +22,7 @@
     --commentPaleColor: #99a140;
     --commentSecondePaleColor : #a9c58e;
     --commentColor: #255E33;
+    --commentTitleColor : #668745;
 }
 
 /**
@@ -118,6 +119,8 @@ form .formGrid .submit {
     color: white;
     background-color: var(--commentColor);
     border: none;
+    border-radius: 15px;
+
 }
 
 /**
@@ -340,11 +343,24 @@ a.info {
     font-weight: bold;
     min-width: 200px;
     width: 200px;
+    background-color: var(--commentTitleColor);
+    justify-content: center;
+}
+
+.articleLine .article_content{
+    flex-grow: 2;
+    justify-content: center;
+}
+
+.articleLine .article_title {
+    font-weight: bold;
+    min-width: 200px;
+    width: 200px;
 }
 
 .articleLine .content {
     flex-grow: 1;
-    min-width: 300px;
+    min-width: 350px;
 }
 
 .articleLine .date {
@@ -361,6 +377,14 @@ a.info {
     min-width: 200px;
     width: 200px;
     justify-content: center;
+}
+
+.articleLine .gestion_content{
+    min-width: 200px;
+    width: 200px;
+    justify-content: center;
+    flex: 1;
+    padding: 0 50px 0 50px;
 }
 
 .comment_count {
@@ -383,6 +407,13 @@ a.info {
     display: flex;
     width: 100%;
     justify-content: flex-start;
+}
+
+
+.pagination{
+    width: 100%;
+    background-color: var(--commentTitleColor);
+    border: 1px solid #ccc;
 }
 /** 
  * Footer global de la page.

@@ -18,7 +18,7 @@
 
     <?php foreach ($comments as $comment) { ?>
         <div class="articleLine">
-            <div class="title"><?= $comment ["article_title"]?></div>
+            <div class="article_title"><?= $comment ["article_title"]?></div>
             <div class="pseudo"><?= $comment ["pseudo"]?></div>
             <div class="content"><?= $comment['content'] ?></div>
             <div class="date"><?= $comment['date_creation'] ?></div>
