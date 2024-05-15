@@ -26,10 +26,14 @@ class ArticleController
 
         $articleManager = new ArticleManager();
         $article = $articleManager->getArticleById($id);
-        
+
         if (!$article) {
             throw new Exception("L'article demandé n'existe pas.");
         }
+                
+        //Enregistre la vue
+        $articleId = $_GET['id'];
+        $articleManager->recordArticleView($articleId, $_SERVER['REMOTE_ADDR']);
 
         $commentManager = new CommentManager();
         $comments = $commentManager->getAllCommentsByArticleId($id);

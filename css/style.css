@@ -387,6 +387,11 @@ a.info {
     padding: 0 50px 0 50px;
 }
 
+.articleLine .views{
+    justify-content: center;
+    min-width: 200px;
+    width: 200px;
+}
 .comment_count {
     min-width: 200px;
     width: 200px;

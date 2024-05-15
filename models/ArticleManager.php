@@ -92,4 +92,26 @@ class ArticleManager extends AbstractEntityManager
         $sql = "DELETE FROM article WHERE id = :id";
         $this->db->query($sql, ['id' => $id]);
     }
+
+    /**
+     * Enregistre la vue d'un article.
+     */
+    public function recordArticleView($articleId, $ip) 
+    {
+        $sql = "INSERT INTO article_views (article_id, date_visite, ip) VALUES (?, NOW(), ?)";
+        $result = $this->db->getPDO()->prepare($sql);
+        $result->execute([$articleId, $ip]);
+    }
+    
+    /**
+     * Récupère les articles en comptant le nombre de vues
+     */
+    public function getAllArticlesWithViews() {
+        $sql = "SELECT article.*, COUNT(article_views.id) AS views FROM article LEFT JOIN article_views ON article.id = article_views.article_id GROUP BY article.id";
+        $result = $this->db->getPDO()->query($sql);
+        return $result->fetchAll(PDO::FETCH_ASSOC); 
+    }
+    
+    
+
 }

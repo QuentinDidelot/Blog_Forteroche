@@ -43,44 +43,67 @@ class AdminController {
         ]);
     }
 
+    // /**
+    //  * Affiche la page de gestion des articles
+    //  * @return void
+    //  */
+    // public function showArticleManagement() : void
+    // {
+    //     // On vérifie que l'utilisateur est connecté.
+    //     $this->checkIfUserIsConnected();
+
+    //     // On récupère les commentaires.
+    //     $commentManager = new CommentManager();
+
+    //     $column = isset($_GET['column']) ? $_GET['column'] : "id" ;
+    //     $order = isset($_GET['order']) ? $_GET['order'] : "desc";
+    //     $comments = $commentManager->getAllCommentsWithArticleName($column, $order);
+
+    //     $articleManager = new ArticleManager();
+    //     $article = $articleManager->getAllArticlesWithViews();
+
+    //     // Regrouper les commentaires par article et calculer le nombre de commentaires pour chaque article
+    //     $articles = [];
+    //     foreach ($comments as $comment) {
+    //         $articleId = $comment['id_article'];
+    //         if (!isset($articles[$articleId])) {
+    //             $articles[$articleId] = [
+    //                 'title' => $comment['article_title'],
+    //                 'date_creation' => $comment['article_date_creation'],
+    //                 'comment_count' => 0
+    //             ];
+    //         }
+    //         $articles[$articleId]['comment_count']++;
+    //     }
+
+    //     // On affiche la page de gestion des articles
+    //     $view = new View("ArticleManagement");
+    //     $view->render("articleManagement", [
+    //         'articles' => $articles,
+    //     ]);
+
+    // }
+
     /**
-     * Affiche la page de gestion des articles
-     * @return void
-     */
-    public function showArticleManagement() : void
-    {
-        // On vérifie que l'utilisateur est connecté.
-        $this->checkIfUserIsConnected();
+ * Affiche la page de gestion des articles
+ * @return void
+ */
+public function showArticleManagement() : void
+{
+    // On vérifie que l'utilisateur est connecté.
+    $this->checkIfUserIsConnected();
 
-        // On récupère les commentaires.
-        $commentManager = new CommentManager();
+    // On récupère les articles avec leurs vues.
+    $articleManager = new ArticleManager();
+    $articles = $articleManager->getAllArticlesWithViews();
+    
+    // On affiche la page de gestion des articles
+    $view = new View("ArticleManagement");
+    $view->render("articleManagement", [
+        'articles' => $articles,
+    ]);
+}
 
-        $column = isset($_GET['column']) ? $_GET['column'] : "id" ;
-        $order = isset($_GET['order']) ? $_GET['order'] : "desc";
-        $comments = $commentManager->getAllCommentsWithArticleName($column, $order);
-
-        
-        // Regrouper les commentaires par article et calculer le nombre de commentaires pour chaque article
-        $articles = [];
-        foreach ($comments as $comment) {
-            $articleId = $comment['id_article'];
-            if (!isset($articles[$articleId])) {
-                $articles[$articleId] = [
-                    'title' => $comment['article_title'],
-                    'date_creation' => $comment['article_date_creation'],
-                    'comment_count' => 0
-                ];
-            }
-            $articles[$articleId]['comment_count']++;
-        }
-
-        // On affiche la page de gestion des articles
-        $view = new View("ArticleManagement");
-        $view->render("articleManagement", [
-            'articles' => $articles,
-        ]);
-
-    }
 
     public function showCommentManagement() : void
     {

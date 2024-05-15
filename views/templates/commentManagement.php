@@ -25,7 +25,7 @@
             <div class="gestion"><a class="submit" href="index.php?action=deleteComment&id=<?= $comment['id'] ?>" <?= Utils::askConfirmation("Êtes-vous sûr de vouloir supprimer ce commentaire ?") ?> >Supprimer</a></div>
         </div>
     <?php } ?>
-
+    
         
     <div class="pagination">
         <?php for ($i = 1; $i <= $totalPages; $i++) { ?>

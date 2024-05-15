@@ -24,8 +24,8 @@
             <a href="?action=articleManagement&column=article.date_creation&order=desc">▼</a></div>
 
         <div class="title">Nombre de vues
-            <a href="?action=articleManagement&column=.......&order=asc">▲</a>
-            <a href="?action=articleManagement&column=.......&order=desc">▼</a>
+            <a href="?action=articleManagement&column=views&order=asc">▲</a>
+            <a href="?action=articleManagement&column=views&order=desc">▼</a>
         </div>
     </div>
 
@@ -34,8 +34,10 @@
             <div class="article_title"><?= $article['title'] ?></div>
             <div class="comment_count"><?= $article['comment_count'] ?></div>
             <div class="date"><?= $article['date_creation'] ?></div>
+            <div class="views"><?= $article['views'] ?></div>
         </div>
     <?php } ?>
+    
 </div>
 
 <div class="back">
