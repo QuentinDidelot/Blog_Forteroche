@@ -9,10 +9,24 @@
 <div class="adminArticle">
 
     <div class="articleLine">
-        <div class="title">Titre de l'Article<a href="?action=articleManagement&column=title&order=asc">▲</a><a href="?action=articleManagement&column=title&order=desc">▼</a></div>
-        <div class="title">Nombre de Commentaires<a href="">▲</a><a href="">▼</a></div>
-        <div class="title">Date de Publication de l'Article<a href="">▲</a><a href="">▼</a></div>
-        <div class="title">Nombre de vues<a href="">▲</a><a href="">▼</a></div>
+        <div class="title">Titre de l'Article
+            <a href="?action=articleManagement&column=article.title&order=asc">▲</a>
+            <a href="?action=articleManagement&column=article.title&order=desc">▼</a>
+        </div>
+
+        <div class="title">Nombre de Commentaires
+            <a href="?action=articleManagement&column=comment_count&order=asc">▲</a>
+            <a href="?action=articleManagement&column=comment_count&order=desc">▼</a>
+        </div>
+
+        <div class="title">Date de Publication de l'Article<a href="">            
+            <a href="?action=articleManagement&column=article.date_creation&order=asc">▲</a>
+            <a href="?action=articleManagement&column=article.date_creation&order=desc">▼</a></div>
+
+        <div class="title">Nombre de vues
+            <a href="?action=articleManagement&column=.......&order=asc">▲</a>
+            <a href="?action=articleManagement&column=.......&order=desc">▼</a>
+        </div>
     </div>
 
     <?php foreach ($articles as $article) { ?>

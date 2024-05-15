@@ -71,11 +71,40 @@ class CommentManager extends AbstractEntityManager
 
     public function getAllCommentsWithArticleName(string $column, string $order) : array
     {
-        $sql = "SELECT article.title AS article_title, pseudo, comment.id, comment.content, id_article, comment.date_creation, article.date_creation AS article_date_creation FROM comment LEFT JOIN article ON article.id= comment.id_article ORDER BY ? ? ";
+
+        $allowed_columns = ['id', 'article.title', 'pseudo', 'comment.id', 'comment.content', 'id_article', 'comment.date_creation', 'article.date_creation', 'comment_count'];
+        $allowed_orders = ['ASC', 'DESC', 'asc', 'desc'];
+
+        if (!in_array($column, $allowed_columns)) {
+            throw new InvalidArgumentException('Invalid column name');
+        }
+
+        if (!in_array($order, $allowed_orders)) {
+            throw new InvalidArgumentException('Invalid order');
+        }
+
+        $sql = "SELECT 
+        comment.id_article, 
+        article.title AS article_title, 
+        pseudo, 
+        comment.id, 
+        comment.content, 
+        comment.date_creation, 
+        article.date_creation AS article_date_creation, 
+        comment_count
+        FROM 
+            comment 
+        LEFT JOIN 
+            article ON article.id = comment.id_article 
+        LEFT JOIN 
+            (SELECT id_article, COUNT(*) AS comment_count FROM comment GROUP BY id_article) AS comment_counts 
+        ON 
+            comment.id_article = comment_counts.id_article 
+        ORDER BY 
+            $column $order";
+
         $result = $this->db->getPDO()->prepare($sql);
-        // $result->bindParam(':column', $column, PDO::PARAM_STR);
-        // $result->bindParam(':order', $order, PDO::PARAM_STR);
-        $result->execute([$column, $order]);
+        $result->execute();
         return $result->fetchAll();
     }
 
