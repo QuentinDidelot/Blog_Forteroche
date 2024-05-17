@@ -32,8 +32,13 @@ class ArticleController
         }
                 
         //Enregistre la vue
-        $articleId = $_GET['id'];
-        $articleManager->recordArticleView($articleId, $_SERVER['REMOTE_ADDR']);
+        if(isset($_GET['id'])) {
+            $articleId = $_GET['id'];
+            $articleManager->recordArticleView($articleId, $_SERVER['REMOTE_ADDR']);
+        } else {
+            // Gérer le cas où l'ID de l'article n'est pas fourni dans l'URL
+            echo "L'identifiant de l'article n'a pas été spécifié.";
+        }
 
         $commentManager = new CommentManager();
         $comments = $commentManager->getAllCommentsByArticleId($id);

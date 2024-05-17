@@ -106,12 +106,41 @@ class ArticleManager extends AbstractEntityManager
     /**
      * Récupère les articles en comptant le nombre de vues
      */
-    public function getAllArticlesWithViews() {
-        $sql = "SELECT article.*, COUNT(article_views.id) AS views FROM article LEFT JOIN article_views ON article.id = article_views.article_id GROUP BY article.id";
+    public function getAllArticlesWithViews(string $column, string $order) {
+
+        $allowed_columns = ['article.id', 'article_title', 'article_date_creation', 'comment_count', 'view_count'];
+        $allowed_orders = ['ASC', 'DESC', 'asc', 'desc'];
+
+        if (!in_array($column, $allowed_columns)) {
+            throw new InvalidArgumentException('Invalid column name');
+        }
+
+        if (!in_array($order, $allowed_orders)) {
+            throw new InvalidArgumentException('Invalid order');
+        }
+
+        $sql = "SELECT
+            article.title AS article_title,
+            article.date_creation AS article_date_creation,
+            COUNT(DISTINCT comment.id) AS comment_count,
+            COUNT(DISTINCT article_views.id) AS view_count
+        FROM
+            article  
+        LEFT JOIN
+            comment 
+            ON comment.id_article = article.id
+        LEFT JOIN
+            article_views
+            ON article_views.article_id = article.id
+        
+        GROUP BY
+            article.id
+        ORDER BY 
+            $column $order";
         $result = $this->db->getPDO()->query($sql);
-        return $result->fetchAll(PDO::FETCH_ASSOC); 
+        $result->execute();
+        return $result->fetchAll(); 
     }
-    
-    
+
 
 }
