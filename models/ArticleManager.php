@@ -59,7 +59,7 @@ class ArticleManager extends AbstractEntityManager
      */
     public function addArticle(Article $article) : void
     {
-        $sql = "INSERT INTO article (id_user, title, content, date_creation) VALUES (:id_user, :title, :content, NOW())";
+        $sql = "INSERT INTO article (id_user, title, content, date_creation, date_update) VALUES (:id_user, :title, :content, NOW(), NOW())";
         $this->db->query($sql, [
             'id_user' => $article->getIdUser(),
             'title' => $article->getTitle(),
@@ -125,7 +125,7 @@ class ArticleManager extends AbstractEntityManager
             COUNT(DISTINCT comment.id) AS comment_count,
             COUNT(DISTINCT article_views.id) AS view_count
         FROM
-            article  
+            article
         LEFT JOIN
             comment 
             ON comment.id_article = article.id

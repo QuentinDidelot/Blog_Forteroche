@@ -14,10 +14,6 @@ class AdminController {
         // On vérifie que l'utilisateur est connecté.
         $this->checkIfUserIsConnected();
 
-        // // On récupère les articles.
-        // $articleManager = new ArticleManager();
-        // $articles = $articleManager->getAllArticles();
-
         // On affiche la page d'administration.
         $view = new View("Administration");
         $view->render("admin");
