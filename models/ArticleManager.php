@@ -137,7 +137,7 @@ class ArticleManager extends AbstractEntityManager
             article.id
         ORDER BY 
             $column $order";
-        $result = $this->db->getPDO()->query($sql);
+        $result = $this->db->getPDO()->prepare($sql);
         $result->execute();
         return $result->fetchAll(); 
     }
