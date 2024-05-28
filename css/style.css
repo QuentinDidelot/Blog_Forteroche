@@ -420,6 +420,11 @@ a.info {
     background-color: var(--commentTitleColor);
     border: 1px solid #ccc;
 }
+
+.active{
+    background-color: var(--commentSecondePaleColor);
+}
+
 /** 
  * Footer global de la page.
  */
