@@ -2,7 +2,7 @@
 
 ## Description :
 
-Emilie Forteroche, autrice de romans, possède un blog écrit en MVC, qui lui permet de publier des articles et d'interagir avec sa communauté à travers un système de commentaires. Le projet consiste à mettre à jour ce blog en ajoutant une page d'administration permettant à Emilie de mieux monitorer son blog. Cette page affichera un tableau regroupant des informations sur chaque article, telles que le nombre de vues, de commentaires et la date de publication, avec la possibilité de trier ces données. En outre, un système de suppression de commentaires sera intégré à l'interface d'administration, permettant de gérer facilement les commentaires indésirables sans passer par la base de données.
+Emilie Forteroche, autrice de romans, possède un blog écrit en MVC, qui lui permet de publier des articles et d'interagir avec sa communauté à travers un système de commentaires. Le projet consiste à mettre à jour ce blog en ajoutant une page d'administration permettant à Emilie de mieux monitorer son blog.
 
 ## Installation du projet :
 
